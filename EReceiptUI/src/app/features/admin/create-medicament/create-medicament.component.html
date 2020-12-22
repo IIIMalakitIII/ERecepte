@@ -1,0 +1,128 @@
+
+
+<div class="row" style="margin-right: 0px;">
+  <div class="col-md-4">
+    <form class="mt-5 mx-5 p-2" [formGroup]="medicamentForm">
+      <h1>Create Medicament</h1>
+
+      <div class="row">
+        <div class="col-md-9">
+          <div class="form-group pt-3">
+            <mat-form-field appearance="outline">
+              <mat-label> Сhoose a medicament category </mat-label>
+              <input placeholder="Search..." matInput type="text"  formControlName="categoryId" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of medicamentCategoriesOptions | async" [value]="option">
+                  {{option.name}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="medicamentForm.get('categoryId').hasError('required')">
+                Category is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-3 pt-3">
+          <button mat-button color="accent" (click)="openCreateCategory()" type="button" >Add new Category</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="form-group pt-3">
+            <mat-form-field appearance="outline">
+              <mat-label> Сhoose a medicament manufacturer </mat-label>
+              <input placeholder="Search..." matInput type="text" formControlName="manufacturerId" [matAutocomplete]="autoManuf">
+              <mat-autocomplete #autoManuf="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of manufacturerOptions | async" [value]="option">
+                  {{option.name}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="medicamentForm.get('manufacturerId').hasError('required')">
+                Manufacturer is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-3 pt-3">
+          <button mat-button color="accent" (click)="openCreateManufacturer()" type="button">Add new Manufacturer</button>
+        </div>
+      </div>
+      <div class="form-group pt-3">
+        <mat-form-field appearance="outline">
+          <mat-label> Medicament Name </mat-label>
+          <input placeholder="Type..." matInput type="text" formControlName="name">
+          <mat-error *ngIf="medicamentForm.get('name').hasError('required')">
+            Medicament Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group pt-3">
+        <mat-form-field appearance="outline">
+          <mat-label> Description </mat-label>
+          <textarea placeholder="Type..." style="max-height: 350px;"  matInput type="text" formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-group pt-3">
+        <mat-form-field appearance="outline">
+          <mat-label> Instruction </mat-label>
+          <textarea cdkTextareaAutosize placeholder="Type..." style="min-height: 100px;"  matInput type="text" formControlName="instruction"></textarea>
+          <mat-error *ngIf="medicamentForm.get('name').hasError('required')">
+            Instruction is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group pt-3">
+         <input #audioFile class="ng-hide" multiple type="file" accept="image/*" (change)="onUpload($event)"/>
+      </div>
+      <div class="form-group pt-3 text-center">
+          <button mat-flat-button color="primary" (click)="onSubmit()" > {{ updateState ? 'Update' : 'Create'}}</button>
+          <button mat-button color="warn" type="button" (click)="clearForm()">
+            Clear
+          </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-8">
+    <div class="mt-5 ml-5 p-2">
+      <h1>Medicaments </h1>
+      <div class="form-group pt-3 align-self-center" style="width: 350px;" *ngIf="medicaments && medicaments.length > 0">
+        <mat-form-field appearance="outline">
+          <mat-label> Search Medicaments </mat-label>
+          <input placeholder="Search..." matInput type="text" [formControl]="medicamentControl">
+        </mat-form-field>
+      </div>
+      <mat-card>
+        <ul style="list-style: none; max-height: 500px; overflow-y: auto;" class="list-inline">
+          <ng-container *ngFor="let option of medicamentsOptions| async">
+            <li class="list-inline-item p-3">
+              <mat-card>
+                <img style="height: 200px; width: 200px;" mat-card-image [src]="option.pictureByte ? option.pictureByte : 'assets/images/unnamed.jpg'">
+                <mat-card-content>
+                  <mat-label style="font-weight: bold;"> {{option?.name}} </mat-label>
+                  <br>
+                  <mat-label class="mat-body-2">Manufacturer: {{option.manufacturerName}} </mat-label>
+                  <br>
+                  <mat-label class="mat-body-2">Manufacturer License: {{option.manufacturerLicense}} </mat-label>
+                  <br>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button color="primary" (click)="fillFormFoUpdate(option)">
+                    Update
+                  </button>
+                  &nbsp;
+                  <button mat-flat-button color="primary" (click)="openInstruction(option.instruction)">
+                    Instruction
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </li>
+          </ng-container>
+       </ul>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+
+

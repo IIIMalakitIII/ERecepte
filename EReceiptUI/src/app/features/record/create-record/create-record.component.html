@@ -1,0 +1,117 @@
+
+<mat-card class="pane">
+  <form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+            <mat-label> {{ 'Сhoose-a-medical-institution' | translate }} </mat-label>
+            <input placeholder="Search..."
+                  matInput
+                  type="text"
+                  [formControl]="medicalInstitutionControl"
+                  [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of medicalInstitutionOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+            <mat-label>   {{ 'Doctors' | translate }} </mat-label>
+            <input placeholder="Search..."
+                  matInput
+                  type="text"
+                  formControlName="doctorId"
+                  [matAutocomplete]="autoDoctors">
+            <mat-autocomplete #autoDoctors="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of doctorsOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="recordForm.get('doctorId').hasError('required')">
+              {{ 'Doctor-is-required' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="form-group pt-3">
+      <mat-form-field appearance="outline">
+        <mat-label> {{ 'Description' | translate }}  </mat-label>
+        <textarea placeholder="Type..." style="max-height: 350px;"  matInput type="text" formControlName="description"></textarea>
+        <mat-error *ngIf="recordForm.get('description').hasError('required')">
+          {{ 'Description-is-required' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group pt-2 pb-2 text-center">
+      <button mat-raised-button color="primary" type="submit">
+          {{ updateState ? 'Update Record' : 'Create Record'}}
+      </button>
+    </div>
+    <div class="text-right">
+      <button mat-button color="warn" type="button" (click)="clearForm()">
+        {{ 'Clear' | translate }}
+      </button>
+    </div>
+  </form>
+  <div class="pt-5">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'History' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let element of patientRecords">
+          <div class="row pt-2">
+            <div class="col-md-6">
+              <mat-label>
+                <strong>{{ 'MedicalInstitution' | translate }}: </strong> {{element.medicalInstitution}}
+              </mat-label>
+              <br>
+              <mat-label>
+                <strong> {{ 'Doctor' | translate }} : </strong> {{element.doctor.name}}
+              </mat-label>
+              <br>
+              <mat-label>
+                <strong>{{ 'Created-At' | translate }} </strong> {{element.recordingTime.toLocaleDateString()}}
+              </mat-label>
+              <br>
+              <mat-label>
+                <strong>{{ ' Patient' | translate }}</strong> {{element.patient.name}}
+              </mat-label>
+            </div>
+            <div class="col-md-6 text-right">
+                  <ng-container *ngIf="recordStatus.InProgress == recordStatus[element.recordStatus]">
+                  <button mat-button color="primary">{{recordStatus[element.recordStatus]}}</button>
+                  <br>
+                  <button mat-flat-button color="warn" (click)="cancelRecordLikePatient(element.id)"> {{ 'Cancel' | translate }}</button>
+                </ng-container>
+                <ng-container *ngIf="recordStatus.InProgress != recordStatus[element.recordStatus]">
+                  <button mat-button color="warn">{{recordStatus[element.recordStatus]}}</button>
+                </ng-container>
+            </div>
+          </div>
+          <div class="form-group pt-5">
+            <mat-form-field appearance="outline">
+              <mat-label> {{ 'Description' | translate }} </mat-label>
+              <textarea placeholder="Type..." style="max-height: 350px; min-height: 100px;" value="{{element.description}}"  matInput type="text" disabled></textarea>
+            </mat-form-field>
+          </div>
+          <div class="text-right pb-3" *ngIf="recordStatus.InProgress == recordStatus[element.recordStatus]">
+            <button mat-flat-button color="accent" (click)="updateRecord(element)">  {{ 'Update' | translate }}</button>
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</mat-card>
+
+

@@ -1,0 +1,9 @@
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\bin\Debug\netcoreapp3.1\EReceipt.Common.deps.json
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\bin\Debug\netcoreapp3.1\EReceipt.Common.dll
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\bin\Debug\netcoreapp3.1\EReceipt.Common.pdb
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\obj\Debug\netcoreapp3.1\EReceipt.Common.csprojAssemblyReference.cache
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\obj\Debug\netcoreapp3.1\EReceipt.Common.AssemblyInfoInputs.cache
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\obj\Debug\netcoreapp3.1\EReceipt.Common.AssemblyInfo.cs
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\obj\Debug\netcoreapp3.1\EReceipt.Common.csproj.CoreCompileInputs.cache
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\obj\Debug\netcoreapp3.1\EReceipt.Common.dll
+E:\GitHub\ERecepte\EReceipt\EReceipt.Common\obj\Debug\netcoreapp3.1\EReceipt.Common.pdb

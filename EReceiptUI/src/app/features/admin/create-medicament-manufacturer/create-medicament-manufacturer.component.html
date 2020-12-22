@@ -1,0 +1,80 @@
+<mat-toolbar color="primary">
+  <h1>Create Manufacturer</h1>
+  <span class="spacer"></span>
+  <button mat-icon-button type="button" [mat-dialog-close]="null">
+      <mat-icon color="primary">close</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-dialog-content class="pt-3 mx-1 h-100">
+  <div class="row" style="margin-right: 0px;">
+    <div class="col-md-5">
+      <form class="mt-5 p-2" [formGroup]="manufactureForm">
+        <h1>Create Manufacturer</h1>
+        <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+            <mat-label> Medicament Category Name </mat-label>
+            <input placeholder="Type..." matInput type="text" formControlName="name">
+            <mat-error *ngIf="manufactureForm.get('name').hasError('required')">
+              Medicament Category Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+            <mat-label> License </mat-label>
+            <input placeholder="Type..." matInput type="text" formControlName="license">
+            <mat-error *ngIf="manufactureForm.get('license').hasError('required')">
+              License is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+            <mat-label> Description </mat-label>
+            <textarea placeholder="Type..." style="max-height: 350px;"  matInput type="text" formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form-group pt-3 text-center">
+            <button mat-flat-button color="primary" (click)="onSubmit()" > {{ updateState ? 'Update' : 'Create'}}</button>
+            <button mat-button color="warn" type="button" (click)="clearForm()">
+              Clear
+            </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-7">
+      <div class="mt-5 ml-5 p-2">
+        <h1>Manufacturers </h1>
+        <div class="form-group pt-3 align-self-center" *ngIf="manufacturers && manufacturers.length > 0">
+          <mat-form-field appearance="outline">
+            <mat-label> Search Manufacturers </mat-label>
+            <input placeholder="Search..." matInput type="text" [formControl]="manufacturerControl">
+          </mat-form-field>
+        </div>
+          <ul style="list-style: none; max-height: 300px; overflow-y: auto;">
+            <ng-container *ngFor="let option of manufacturerOptions| async">
+              <li class="p-3">
+                <mat-card class="w-100">
+                  <strong>Manufacturer Name:</strong> {{option.name}}
+                  <br>
+                  <strong>Manufacturer License:</strong>  {{option.license}}
+                  <br>
+                  <div class="form-group pt-3">
+                    <mat-form-field appearance="outline">
+                      <mat-label> Description </mat-label>
+                      <textarea placeholder="Type..." style="max-height: 350px;" disabled matInput type="text" value="{{option.description}}"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <mat-card-actions>
+                    <button class="text-right" mat-button color="primary" (click)="fillFormFoUpdate(option)">
+                      Update
+                    </button>
+                  </mat-card-actions>
+                </mat-card>
+              </li>
+            </ng-container>
+         </ul>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

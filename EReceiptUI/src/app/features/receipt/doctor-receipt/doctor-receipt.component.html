@@ -1,0 +1,63 @@
+<div class="container">
+  <ng-container *ngFor="let receipt of patientReceipt">
+    <section class="p-3">
+      <mat-card>
+        <div class="row">
+          <div class="col-md-6 ">
+            <mat-label>
+              <strong>{{ 'MedicalInstitution' | translate }}: </strong> {{receipt.medicalInstitution}}
+            </mat-label>
+            <br>
+            <mat-label>
+              <strong>{{ 'Doctor' | translate }}: </strong> {{receipt.doctor.name}}
+            </mat-label>
+            <br>
+            <mat-label>
+              <strong>{{ 'Purchase-is-possible-from' | translate }} {{receipt.dateStart.toLocaleDateString()}} {{receipt.dateStart.toLocaleTimeString()}}
+                {{ 'to' | translate }} {{receipt.dateEnd.toLocaleDateString()}} {{receipt.dateEnd.toLocaleTimeString()}} </strong>
+            </mat-label>
+            <br>
+            <mat-label>
+              <strong>{{ 'Patient' | translate }}: </strong> {{receipt.patient.name}}
+            </mat-label>
+            <br>
+            <mat-label>
+              <strong>{{ 'Status' | translate }}: </strong> {{receiptStatus[receipt.receiptStatus]}}
+            </mat-label>
+          </div>
+          <div class="col-md-6 float-right">
+            <mat-card class="w-75 ml-auto" *ngIf="receipt.medicament">
+              <img class="h-75" mat-card-image [src]="receipt.medicament.pictureByte ? receipt.medicament.pictureByte : 'assets/images/unnamed.jpg'">
+              <mat-card-content>
+                <mat-label style="font-weight: bold;"> {{receipt.medicament?.name}} </mat-label>
+                <br>
+                <mat-label class="mat-body-2">{{ 'Category' | translate }}: {{receipt.medicamentCategory.name}}</mat-label>
+                <br>
+                <mat-label class="mat-body-2">{{ 'Manufacturer' | translate }}: {{receipt.medicament.manufacturerName}} </mat-label>
+                <br>
+                <mat-label class="mat-body-2">{{ 'ManufacturerLicense' | translate }}: {{receipt.medicament.manufacturerLicense}} </mat-label>
+                <br>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button color="primary" (click)="openInstruction(receipt.medicament.instruction)">
+                  {{ 'OpenInstruction' | translate }}
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+        <mat-card-actions class="text-right" >
+          <button mat-button color="warn" *ngIf="receiptStatus.InTheProcess == receiptStatus[receipt.receiptStatus]" (click)="blockReceipt(receipt.id)">
+            {{ 'Block' | translate }}
+          </button>
+          &nbsp;
+          <button mat-flat-button color="primary" (click)="openCreateReceipt(receipt.patientId)" >
+            {{ 'CreateNew' | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </section>
+  </ng-container>
+</div>
+
+

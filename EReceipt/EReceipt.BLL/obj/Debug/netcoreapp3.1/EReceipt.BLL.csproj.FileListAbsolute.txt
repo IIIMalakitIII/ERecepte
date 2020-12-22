@@ -1,0 +1,14 @@
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\bin\Debug\netcoreapp3.1\EReceipt.BLL.deps.json
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\bin\Debug\netcoreapp3.1\EReceipt.BLL.dll
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\bin\Debug\netcoreapp3.1\EReceipt.BLL.pdb
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\bin\Debug\netcoreapp3.1\EReceipt.Common.dll
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\bin\Debug\netcoreapp3.1\EReceipt.DAL.dll
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\bin\Debug\netcoreapp3.1\EReceipt.DAL.pdb
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\bin\Debug\netcoreapp3.1\EReceipt.Common.pdb
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\obj\Debug\netcoreapp3.1\EReceipt.BLL.csprojAssemblyReference.cache
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\obj\Debug\netcoreapp3.1\EReceipt.BLL.AssemblyInfoInputs.cache
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\obj\Debug\netcoreapp3.1\EReceipt.BLL.AssemblyInfo.cs
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\obj\Debug\netcoreapp3.1\EReceipt.BLL.csproj.CoreCompileInputs.cache
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\obj\Debug\netcoreapp3.1\EReceipt.BLL.csproj.CopyComplete
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\obj\Debug\netcoreapp3.1\EReceipt.BLL.dll
+E:\GitHub\ERecepte\EReceipt\EReceipt.BLL\obj\Debug\netcoreapp3.1\EReceipt.BLL.pdb

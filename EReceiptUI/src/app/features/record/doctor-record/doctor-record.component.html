@@ -1,0 +1,54 @@
+<div class="container">
+  <ng-container *ngFor="let recordItem of doctorRecords">
+    <section class="p-3">
+      <mat-card>
+        <div class="row">
+          <div class="col-md-6 ">
+            <mat-label>
+              <strong>{{ 'MedicalInstitution' | translate }}: </strong> {{recordItem.medicalInstitution}}
+            </mat-label>
+            <br>
+            <mat-label>
+              <strong>{{ 'Doctor' | translate }}: </strong> {{recordItem.doctor.name}}
+            </mat-label>
+            <br>
+            <mat-label>
+              <strong>{{ 'Created-At' | translate }}: </strong> {{recordItem.recordingTime.toLocaleDateString()}}
+            </mat-label>
+            <br>
+            <mat-label>
+              <strong>{{ 'Patient' | translate }}: </strong> {{recordItem.patient.name}}
+            </mat-label>
+          </div>
+          <div class="col-md-6 text-right">
+            <ng-container *ngIf="recordStatus.RejectedByPatient == recordStatus[recordItem.recordStatus]">
+             <button mat-button color="warn">{{recordStatus[recordItem.recordStatus]}}</button>
+            </ng-container>
+            <ng-container *ngIf="recordStatus.RejectedByPatient != recordStatus[recordItem.recordStatus]">
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'Status' | translate }}:</mat-label>
+                <mat-select [(ngModel)]="recordItem.recordStatus">
+                  <ng-container *ngFor="let status of recordStatusKeys">
+                    <mat-option *ngIf="recordStatus.RejectedByPatient != recordStatus[status]" [value]="status">
+                      {{recordStatus[status]}}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+              <button mat-flat-button color="accent" (click)="updateRecordLikeDoctor(recordItem)">{{ 'ChangeRecordStatus' | translate }}</button>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group pt-5">
+          <mat-form-field appearance="outline">
+            <mat-label> {{ 'Description' | translate }} </mat-label>
+            <textarea placeholder="Type..." style="max-height: 350px; min-height: 100px;" value="{{recordItem.description}}"  matInput type="text" disabled></textarea>
+          </mat-form-field>
+        </div>
+
+        <button mat-button color="primary" (click)="openDiseaseHistory(recordItem.patientId)">{{ 'OpenDiseaseHistory' | translate }}</button>
+        <button mat-flat-button class="float-right" color="primary" (click)="createReceipt(recordItem.patientId, recordItem.id)">{{ 'CreateReceipt' | translate }}</button>
+      </mat-card>
+    </section>
+  </ng-container>
+</div>

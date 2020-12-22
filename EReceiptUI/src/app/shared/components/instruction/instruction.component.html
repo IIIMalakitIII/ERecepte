@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <h1>{{ 'Instruction' | translate }} </h1>
+  <span class="spacer"></span>
+  <button mat-icon-button type="button" [mat-dialog-close]="null">
+      <mat-icon color="primary">close</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-dialog-content class="pt-3 mx-1 h-100">
+  <div class="form-group pt-5">
+    <mat-form-field appearance="outline">
+      <mat-label> {{ 'Instruction' | translate }}  </mat-label>
+      <textarea style="min-height: 500px; max-height: 500px;" value="{{data}}"  matInput type="text"></textarea>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>

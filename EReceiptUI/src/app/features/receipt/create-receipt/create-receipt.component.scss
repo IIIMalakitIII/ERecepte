@@ -1,0 +1,22 @@
+.pane {
+  left: 50%;
+  top: 50%;
+  width: 800px;
+  min-height: 350px;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+
+  button {
+    text-transform: uppercase;
+    width: 162px;
+  }
+
+  .black {
+    color: #000000;
+  }
+}
+
+.example-card {
+  max-width: 400px;
+}
+

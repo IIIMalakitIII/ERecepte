@@ -1,0 +1,243 @@
+<mat-vertical-stepper linear #stepper>
+  <mat-step [stepControl]="selectedRole" [editable]="false">
+      <div>
+        <ng-template matStepLabel> {{selectedRole.valid ? selectedRole.value : ('Who-Are-You' | translate)}} </ng-template>
+        <mat-radio-group class="radio-group" [formControl]="selectedRole">
+          <ng-container *ngFor="let key of rolesKeys">
+            <mat-radio-button *ngIf="roles[key] != 'Admin'" class="radio-button" [value]="roles[key]" >
+              {{roles[key]}}
+          </mat-radio-button>
+          </ng-container>
+        </mat-radio-group>
+        <div>
+          <button mat-button matStepperNext> {{ 'Next' | translate }} </button>
+        </div>
+      </div>
+  </mat-step>
+  <mat-step [completed]="formValid()" [editable]="true">
+    <ng-template matStepLabel> {{ formValid() ? ('Completed' | translate) : ('Fill-the-form' | translate)}} </ng-template>
+    <form [formGroup]="signUpForm">
+      <div class="form-group pt-3">
+        <mat-form-field appearance="outline">
+            <mat-label> {{ 'UserName' | translate }} </mat-label>
+            <input matInput formControlName="userName"/>
+            <mat-error *ngIf="signUpForm.get('userName').hasError('required')">
+                {{ 'Name-Is-Required' | translate }}
+            </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+              <mat-label>  {{ 'Email' | translate }} </mat-label>
+              <input matInput formControlName="email"/>
+              <mat-error *ngIf="signUpForm.get('email').hasError('email')">
+                {{ 'Invalid-Email-Address' | translate }}
+              </mat-error>
+              <mat-error *ngIf="signUpForm.get('email').hasError('required')">
+                {{ 'Email-Is-Required' | translate }}
+              </mat-error>
+          </mat-form-field>
+      </div>
+      <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+              <mat-label> {{ 'Password' | translate }} </mat-label>
+              <input matInput type="password" formControlName="password" autocomplete="on"/>
+              <mat-error *ngIf="signUpForm.get('password').hasError('required')">
+                  {{ 'Password-Is-Required' | translate }}
+              </mat-error>
+          </mat-form-field>
+      </div>
+    </form>
+    <ng-container *ngIf="roles[roles.Pharmacy] == selectedRole.value">
+      <form [formGroup]="pharmacyForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label> {{ 'Country' | translate }}  </mat-label>
+                  <input matInput formControlName="country"/>
+                  <mat-error *ngIf="pharmacyForm.get('country').hasError('required')">
+                    {{ 'Country-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label> {{ 'City' | translate }}  </mat-label>
+                  <input matInput formControlName="city"/>
+                  <mat-error *ngIf="pharmacyForm.get('city').hasError('required')">
+                      {{ 'City-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+              <mat-label> {{ 'Address' | translate }} </mat-label>
+              <input matInput formControlName="address"/>
+              <mat-error *ngIf="pharmacyForm.get('address').hasError('required')">
+                {{ 'Address-Is-Required' | translate }}
+              </mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="roles[roles.Patient] == selectedRole.value">
+      <form [formGroup]="patientForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label> {{ 'First-Name' | translate }} </mat-label>
+                  <input matInput formControlName="firstName"/>
+                  <mat-error *ngIf="patientForm.get('firstName').hasError('required')">
+                    {{ 'First-Name-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label> {{ 'Last-Name' | translate }}</mat-label>
+                  <input matInput formControlName="lastName"/>
+                  <mat-error *ngIf="patientForm.get('lastName').hasError('required')">
+                    {{ 'Last-Name-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label> {{ 'Country' | translate }}  </mat-label>
+                  <input matInput formControlName="country"/>
+                  <mat-error *ngIf="patientForm.get('country').hasError('required')">
+                    {{ 'Country-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label>  {{ 'Address' | translate }} </mat-label>
+                  <input matInput formControlName="address"/>
+                  <mat-error *ngIf="patientForm.get('address').hasError('required')">
+                    {{ 'Address-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group pt-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>   {{ 'Passport' | translate }} </mat-label>
+                    <input matInput formControlName="passport"/>
+                    <mat-error *ngIf="patientForm.get('passport').hasError('required')">
+                      {{ 'Passport-Is-Required' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label>  {{ 'Phone' | translate }}</mat-label>
+                  <input matInput formControlName="phone"/>
+                  <mat-error *ngIf="patientForm.get('phone').hasError('required')">
+                     {{ 'Phone-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="roles[roles.Doctor] == selectedRole.value">
+      <form [formGroup]="doctorForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label>{{ 'First-Name' | translate }} </mat-label>
+                  <input matInput formControlName="firstName"/>
+                  <mat-error *ngIf="doctorForm.get('firstName').hasError('required')">
+                    {{ 'First-Name-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label> {{ 'Last-Name' | translate }} </mat-label>
+                  <input matInput formControlName="lastName"/>
+                  <mat-error *ngIf="doctorForm.get('lastName').hasError('required')">
+                    {{ 'Last-Name-Is-Required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                  <mat-label> {{ 'License' | translate }}</mat-label>
+                  <input matInput formControlName="license"/>
+                  <mat-error *ngIf="doctorForm.get('license').hasError('required')">
+                    {{ 'License-is-required' | translate }}
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group pt-3">
+              <mat-form-field appearance="outline">
+                <mat-label> {{ 'Phone' | translate }} </mat-label>
+                <input matInput formControlName="phone"/>
+                <mat-error *ngIf="doctorForm.get('phone').hasError('required')">
+                   {{ 'Phone-Is-Required' | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group pt-3">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'MedicalInstitutions' | translate }}</mat-label>
+            <input placeholder="Search..."
+                  matInput
+                  type="text"
+                  formControlName="medicalInstitutionId"
+                  [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="doctorForm.get('medicalInstitutionId').hasError('required')"> {{ 'Medical-Institution-is-required' | translate }} </mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </ng-container>
+    <div>
+      <button mat-button (click)="stepper.reset(); clearForm()">{{ 'Reset' | translate }}</button>
+      <button mat-button matStepperNext>{{ 'Next' | translate }}</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>{{ 'Complete' | translate }}</ng-template>
+      <button mat-button matStepperPrevious>{{ 'Back' | translate }}</button>
+      <button mat-button matStepperPrevious color="primary" (click)="onSubmit()">{{ 'SignUp' | translate }}</button>
+      <button mat-button (click)="stepper.reset(); clearForm()">{{ 'Reset' | translate }}</button>
+  </mat-step>
+</mat-vertical-stepper>

@@ -1,0 +1,33 @@
+
+<mat-toolbar class="dark">
+  <a class="navbar-brand" [routerLink]="['/record']">{{ 'Main-Title-1' | translate }}</a>
+  <div class="toolbar-spacer"></div>
+  <div class="toolbar-spacer"></div>
+  <div class="toolbar-spacer"></div>
+
+  <mat-menu #appMenu="matMenu">
+    <ng-template matMenuContent let-name="username">
+      <button mat-menu-item class="warn-color" style="text-align: center;" (click)="logout()">    {{ 'LogOut' | translate }}</button>
+    </ng-template>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="appMenu">
+    <mat-icon color="primary">person</mat-icon>
+    <span class="username-label primary-color">{{ currentUser?.name }}</span>
+  </button>
+  <div class="float-right align-content-end">
+    <a type="button" class="btn btn-outline-primary" (click)="localizationUA()"> ua </a>
+    <a type="button" class="btn btn-outline-primary" (click)="localizationEN()"> en </a>
+  </div>
+</mat-toolbar>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link [routerLink]="['/record']" *ngIf="currentUser?.er_role == roles[roles.Patient] || currentUser?.er_role == roles[roles.Doctor]" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+    {{ 'Record-Tab' | translate }}
+  </a>
+  <a mat-tab-link [routerLink]="['/receipt']" *ngIf="currentUser?.er_role == roles[roles.Patient] || currentUser?.er_role == roles[roles.Doctor]" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
+    {{ 'Receipt-Tab' | translate }}
+  </a>
+  <a mat-tab-link [routerLink]="['/admin']" *ngIf="currentUser?.er_role == roles[roles.Admin]" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
+    {{ 'Medicament-Tab' | translate }}
+  </a>
+</nav>

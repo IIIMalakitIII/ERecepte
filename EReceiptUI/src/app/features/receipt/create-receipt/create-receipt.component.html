@@ -1,0 +1,111 @@
+
+<div class="col-md-10 h-100 offset-md-1 mt-5 rounded">
+  <form class="col-md-4 offset-md-4 mt-5" [formGroup]="receipForm">
+    <div class="row pt-2">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label> {{ 'Active-From' | translate }} </mat-label>
+          <input matInput [matDatepicker]="dp1" [min]="minDate" formControlName="dateStart">
+          <mat-datepicker-toggle matSuffix  [for]="dp1"></mat-datepicker-toggle>
+          <mat-datepicker #dp1></mat-datepicker>
+          <mat-error *ngIf="receipForm.get('dateStart').hasError('required')">
+            {{ 'Active-From-is-required' | translate }}
+        </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'Active-To' | translate }}  </mat-label>
+          <input matInput [matDatepicker]="dp2" [min]="minDate" formControlName="dateEnd">
+          <mat-datepicker-toggle matSuffix  [for]="dp2"></mat-datepicker-toggle>
+          <mat-datepicker #dp2></mat-datepicker>
+          <mat-error *ngIf="receipForm.get('dateEnd').hasError('required')">
+            {{ 'Active-To-is-required' | translate }}
+        </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-group pt-3">
+      <mat-form-field appearance="outline">
+        <mat-label> {{ 'Сhoose-a-medicament-category' | translate }} </mat-label>
+        <input placeholder="Search..."
+              matInput
+              type="text"
+              [formControl]="medicamentCategoryControl"
+              [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of medicamentCategoriesOptions | async" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="form-group pt-3" *ngIf="medicaments && medicaments.length > 0">
+      <mat-form-field appearance="outline">
+        <mat-label> {{ 'Search-Medicaments' | translate }} </mat-label>
+        <input placeholder="Search..." matInput type="text" [formControl]="medicamentControl">
+      </mat-form-field>
+    </div>
+    <div class="form-group pt-3" style="height: 150px;">
+      <mat-card class="w-100" *ngIf="selectedMedicament">
+        <mat-card-header>
+          <img mat-card-avatar [src]="selectedMedicament.pictureByte ? selectedMedicament.pictureByte : 'assets/images/unnamed.jpg'">
+          <mat-card-title style="margin-left: 0px; margin-top: 0px;">{{selectedMedicament?.name}}</mat-card-title>
+          <mat-card-subtitle class="mat-body-1">
+            {{ 'Manufacturer' | translate }}: {{selectedMedicament.manufacturerName}}
+            <br>
+            {{ 'ManufacturerLicense' | translate }}: {{selectedMedicament.manufacturerLicense}}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-flat-button color="warn" (click)="selectedMedicament= null;receipForm.get('medicamentId').setValue(null)">
+            {{ 'Cancel' | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </form>
+  <mat-divider></mat-divider>
+  <div class="pt-5">
+    <div>
+      <ul style="list-style: none;" class="list-inline">
+        <ng-container *ngFor="let option of medicamentsOptions | async">
+          <li class="list-inline-item p-3">
+            <mat-card class="example-card">
+              <img mat-card-image [src]="option.pictureByte ? option.pictureByte : 'assets/images/unnamed.jpg'">
+              <mat-card-content>
+                <mat-label style="font-weight: bold;"> {{option?.name}} </mat-label>
+                <br>
+                <mat-label class="mat-body-2">{{ 'Manufacturer' | translate }}: {{option.manufacturerName}} </mat-label>
+                <br>
+                <mat-label class="mat-body-2">{{ 'ManufacturerLicense' | translate }}: {{option.manufacturerLicense}} </mat-label>
+                <br>
+              </mat-card-content>
+              <mat-card-actions>
+                <button *ngIf="selectedMedicament && selectedMedicament.id != option.id" mat-flat-button color="accent" (click)="selectedMedicament=option;receipForm.get('medicamentId').setValue(option.id)">
+                  {{ 'Replace' | translate }}
+                </button>
+                <button *ngIf="!selectedMedicament" mat-flat-button color="accent" (click)="selectedMedicament=option;receipForm.get('medicamentId').setValue(option.id)">
+                  {{ 'Select' | translate }}
+                </button>
+                <button *ngIf="selectedMedicament && selectedMedicament.id == option.id" mat-flat-button color="warn" (click)="selectedMedicament= null;receipForm.get('medicamentId').setValue(null)">
+                  {{ 'Cancel' | translate }}
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </li>
+        </ng-container>
+     </ul>
+     <mat-error *ngIf="receipForm.get('medicamentId').dirty">
+        {{ 'Medicament-is-required' | translate }}
+      </mat-error>
+    </div>
+    <div class="form-group pt-2 pb-2 text-center">
+      <button mat-raised-button color="primary" (click)="onSubmit()">
+          {{ 'Create-Receipt' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+
